@@ -1,0 +1,41 @@
+apply plugin: 'war'
+apply plugin: 'idea'
+
+configurations {
+    compile.exclude group:'commons-logging'
+    testCompile.exclude group:'commons-logging'
+}
+
+dependencies {
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-web:$springSecurityVersion"
+    compile "com.h2database:h2:$h2Version"
+    compile "org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"
+    compile "org.apache.commons:commons-lang3:$commonsLangVersion"
+    compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafExtrasSpringSecurityVersion"
+    compile "org.springframework.ldap:spring-ldap-core:2.0.1.RELEASE"
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+
+
+    providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+
+    testCompile "junit:junit-dep:$junitVersion"
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
+    testCompile group: 'org.glassfish', name: 'javax.el', version: '3.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+task explodedWar(type: Sync) {
+    into "build/libs/exploded/${rootProject.name}.war"
+    with war
+}
