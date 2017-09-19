@@ -39,3 +39,7 @@ task explodedWar(type: Sync) {
     into "build/libs/exploded/${rootProject.name}.war"
     with war
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
+}
