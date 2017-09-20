@@ -1,5 +1,6 @@
 package com.demo.web.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -8,14 +9,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * //TODO change your class description
+ * The web configuration file
  *
  * @version Revision History
  * <pre>
  * Author   Version     Date            Changes
  * pankplee  1.0         9/20/2017         Created
  * </pre>
- * @since Suite 4.0
+ * @since 1.0
  */
 @Configuration
 @EnableWebMvc
@@ -32,6 +33,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
+    @Bean
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/");

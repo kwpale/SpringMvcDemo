@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * //TODO change your class description
+ * Home controller
  *
  * @version Revision History
  * <pre>
  * Author   Version     Date            Changes
  * pankplee  1.0         9/20/2017         Created
  * </pre>
- * @since Suite 4.0
+ * @since 1.0
  */
 @Controller
 @RequestMapping("/")

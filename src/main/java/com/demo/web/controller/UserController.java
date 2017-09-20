@@ -12,6 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 
+/**
+ * User Controller
+ *
+ * @version Revision History
+ * <pre>
+ * Author   Version     Date            Changes
+ * pankplee  1.0         9/20/2017         Created
+ * </pre>
+ * @since 1.0
+ */
 @Controller
 @RequestMapping("/users")
 public class UserController implements ApplicationContextAware {

@@ -7,14 +7,14 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 /**
- * //TODO change your class description
+ * The web initializer, used to replace web.xml
  *
  * @version Revision History
  * <pre>
  * Author   Version     Date            Changes
  * pankplee  1.0         9/20/2017         Created
  * </pre>
- * @since Suite 4.0
+ * @since 1.0
  */
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

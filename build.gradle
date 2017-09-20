@@ -6,8 +6,6 @@ configurations {
     testCompile.exclude group:'commons-logging'
 }
 
-println springVersion
-
 dependencies {
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework:spring-jdbc:$springVersion"
@@ -15,6 +13,7 @@ dependencies {
     compile "org.springframework.security:spring-security-web:$springSecurityVersion"
     compile "com.h2database:h2:$h2Version"
     compile "org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
     compile "org.apache.commons:commons-lang3:$commonsLangVersion"
     compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafExtrasSpringSecurityVersion"
@@ -22,6 +21,9 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+    compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    compile"com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
 
 
     providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
