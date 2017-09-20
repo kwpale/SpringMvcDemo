@@ -9,3 +9,7 @@ Settings for use in Intellij Idea
     - Add exploded artifact
     - Remove all "before launch: build" and add explodedWar task
     - On frame deactivation: Update classses and resources
+
+---
+
+Note that the `out` folder generated in Idea is just for making the resources able to hot-swapped.

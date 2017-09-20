@@ -6,6 +6,8 @@ configurations {
     testCompile.exclude group:'commons-logging'
 }
 
+println springVersion
+
 dependencies {
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework:spring-jdbc:$springVersion"
