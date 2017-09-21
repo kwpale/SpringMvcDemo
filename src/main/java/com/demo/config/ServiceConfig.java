@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * //TODO change your class description
+ * Configuration for Services
  *
  * @version Revision History
  * <pre>
