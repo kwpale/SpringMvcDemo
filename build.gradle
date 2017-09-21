@@ -34,6 +34,9 @@ allprojects {
         //in memory test database
         h2Version = '1.4.192'
 
+        //mysql database
+        mysqlConnectorVersion = '6.0.6'
+
         //logging libs
         log4jVersion = '2.8.2'
         slf4jVersion = '1.7.21'
@@ -76,6 +79,7 @@ allprojects {
 
         misc = [
                 h2                : "com.h2database:h2:$h2Version",
+                mysqlConnector    : "mysql:mysql-connector-java:$mysqlConnectorVersion",
                 joda              : "joda-time:joda-time:$jodaVersion",
                 jstl              : "javax.servlet:jstl:1.2",
                 javaxEl           : "javax.el:javax.el-api:3.0.0",
@@ -103,7 +107,7 @@ allprojects {
         ]
 
         hibernate = [
-                validator: "org.hibernate:hibernate-validator:6.0.1.Final",
+                validator: "org.hibernate:hibernate-validator:5.4.1.Final",
                 ehcache  : "org.hibernate:hibernate-ehcache:$hibernateVersion",
                 em       : "org.hibernate:hibernate-entitymanager:$hibernateVersion",
                 core     : "org.hibernate:hibernate-core:$hibernateVersion"
@@ -147,6 +151,7 @@ dependencies {
     compile spring.data
     compile misc.h2
     compile misc.hikari
+    compile misc.mysqlConnector
     compile hibernate.validator
     compile hibernate.core
     compile thymeleaf.thymeleafSpring4

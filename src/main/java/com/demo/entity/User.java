@@ -2,11 +2,12 @@ package com.demo.entity;
 
 import com.demo.base.AbstractEntity;
 import com.demo.base.UserType;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class User extends AbstractEntity {
     /**
      * username = email

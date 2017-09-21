@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = {com.demo.web.controller.HomeController.class})
+@ComponentScan(basePackageClasses = {com.demo.web.controller.PackageMarker.class})
 public class WebConfig extends WebMvcConfigurerAdapter {
     /**
      * {@inheritDoc}

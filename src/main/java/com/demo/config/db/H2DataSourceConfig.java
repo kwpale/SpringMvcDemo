@@ -12,10 +12,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@Profile("prod")
+@Profile("dev")
 @Configuration
-@PropertySource({"classpath:prod/db.properties"})
-public class DataSourceConfig implements DataConfig {
+@PropertySource({"classpath:dev/db.properties"})
+public class H2DataSourceConfig implements DataConfig {
 
     @Value("${db.driverClassName}")
     private String driverClassName;
@@ -35,7 +35,7 @@ public class DataSourceConfig implements DataConfig {
     @Bean
     public Properties hibernateProperties() {
         Properties hibernateProp = new Properties();
-        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         // notice different parameter values for a production environment
         hibernateProp.put("hibernate.hbm2ddl.auto", "update");
         hibernateProp.put("hibernate.show_sql", false);

@@ -1,6 +1,10 @@
 package com.demo.web.controller;
 
+import com.demo.base.UserType;
+import com.demo.entity.User;
+import com.demo.repo.UserRepo;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
@@ -28,10 +32,22 @@ public class UserController implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
+    private UserRepo userRepo;
+
+    @Autowired
+    public void setUserRepo(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
+
     @RequestMapping(value = "/{id:\\d*}", method = RequestMethod.GET)
     @ResponseBody
     public String show(@PathVariable Long id, Model model) {
-        return Arrays.asList(applicationContext.getBeanDefinitionNames()).toString();
+        User user = com.demo.util.RecordBuilder.buildUser("Hi.das@fwq.com");
+        user.setPassword("123");
+        user.setUserType(UserType.User);
+        userRepo.save(user);
+        return Arrays.asList(applicationContext.getBeanDefinitionNames()).toString() + "\n"
+                + Arrays.asList(applicationContext.getParent().getBeanDefinitionNames()).toString();
     }
 
     @Override
