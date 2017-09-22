@@ -107,7 +107,7 @@ allprojects {
         ]
 
         hibernate = [
-                validator: "org.hibernate:hibernate-validator:5.4.1.Final",
+                validator: "org.hibernate:hibernate-validator:6.0.1.Final",
                 ehcache  : "org.hibernate:hibernate-ehcache:$hibernateVersion",
                 em       : "org.hibernate:hibernate-entitymanager:$hibernateVersion",
                 core     : "org.hibernate:hibernate-core:$hibernateVersion"

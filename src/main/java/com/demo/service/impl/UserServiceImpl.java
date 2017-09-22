@@ -33,16 +33,18 @@ public class UserServiceImpl implements UserService {
         return userRepo.countUsers();
     }
 
-    @Override public List<User> findAll() {
+    @Override
+    public List<User> findAll() {
         return userRepo.findAll();
     }
 
     @Override
     @Transactional(readOnly = false)
-    public void create(String email, String password, UserType userType) {
+    public User create(String email, String password, UserType userType) {
         User user = RecordBuilder.buildUser(email);
         user.setPassword(password);
         user.setUserType(userType);
         userRepo.save(user);
+        return user;
     }
 }

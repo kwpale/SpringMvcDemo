@@ -2,9 +2,9 @@ package com.demo.entity;
 
 import com.demo.base.AbstractEntity;
 import com.demo.base.UserType;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -122,5 +122,23 @@ public class User extends AbstractEntity {
         result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
         result = 31 * result + (getUserType() != null ? getUserType().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", id=" + id +
+                ", createdAt=" + createdAt +
+                ", modifiedAt=" + modifiedAt +
+                ", version=" + version +
+                '}';
     }
 }
