@@ -1,8 +1,10 @@
 package com.demo.base;
 
 public enum UserType {
-    User(1),
+    USER(1),
     ADMIN(2);
+
+    public static final UserType[] ALL = { USER, ADMIN };
 
     private int code;
 

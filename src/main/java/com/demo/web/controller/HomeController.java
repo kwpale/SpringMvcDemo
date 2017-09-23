@@ -1,6 +1,7 @@
 package com.demo.web.controller;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,9 @@ public class HomeController implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
+    @Value("${db.driverClassName}")
+    private String driverClassName;
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public String show() {
@@ -38,5 +42,11 @@ public class HomeController implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @RequestMapping(value = "/test")
+    @ResponseBody
+    public String test() {
+        return driverClassName;
     }
 }
