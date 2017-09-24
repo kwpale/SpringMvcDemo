@@ -10,14 +10,16 @@
 No. of users: <span th:text="${@userServiceImpl.countUsers()}"/>
 <table>
     <tr th:unless="${users.isEmpty()}">
+        <th>Row</th>
         <th>Name</th>
         <th>Type</th>
     </tr>
     <tr th:each="user, userStat : ${users}">
-        <td th:text="${user.getUsername()} + ' ' + ${userStat.index}">Name</td>
+        <td th:text="${userStat.index}">Row</td>
+        <td th:text="${user.getUsername()}">Name</td>
         <td th:text="${user.getUserType()}">Type</td>
     </tr>
 </table>
-
+<span th:text="${users}"/>
 </body>
 </html>

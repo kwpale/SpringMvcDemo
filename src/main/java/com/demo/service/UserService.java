@@ -13,5 +13,7 @@ public interface UserService {
 
     User create(String email, String password, UserType userType);
 
+    User create(User user);
+
     List<User> findAll();
 }

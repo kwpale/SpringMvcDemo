@@ -1,6 +1,7 @@
 package com.demo.web.initializer;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -45,7 +46,9 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         charFilter.setEncoding("UTF-8");
         charFilter.setForceEncoding(true);
         return new Filter[] {
-                new HiddenHttpMethodFilter(), charFilter
+                new DelegatingFilterProxy("springSecurityFilterChain"),
+                new HiddenHttpMethodFilter(),
+                charFilter
         };
     }
 }

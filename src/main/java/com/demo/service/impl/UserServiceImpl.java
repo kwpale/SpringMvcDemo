@@ -47,4 +47,10 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
         return user;
     }
+
+    @Override
+    @Transactional(readOnly = false)
+    public User create(User user) {
+        return userRepo.save(user);
+    }
 }
