@@ -4,7 +4,6 @@ import com.demo.base.UserType;
 import com.demo.entity.User;
 import com.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -67,6 +66,13 @@ public class UserController {
             return "user/create";
         }
         userService.create(user);
+        model.clear();
+        return "redirect:/user";
+    }
+
+    @RequestMapping(value = "/delete/{id:\\d*}")
+    public String delete(@PathVariable Long id, ModelMap model) {
+        userService.remove(id);
         model.clear();
         return "redirect:/user";
     }

@@ -1,18 +1,17 @@
 package com.demo.web.config;
 
+import com.demo.web.conversion.DateFormatter;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -36,8 +35,9 @@ import java.util.Set;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {com.demo.web.controller.PackageMarker.class})
-public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+public class WebConfig extends WebMvcConfigurerAdapter {
 
+    @Autowired
     private ApplicationContext applicationContext;
 
     @Override
@@ -45,16 +45,16 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addViewController("/login").setViewName("login");
     }
 
+    // If no handler mapping is found, use container's default servlet (which is used to
+    // load static resources)
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
-    @Bean
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
-        mapping.setUseTrailingSlashMatch(true);
-        return mapping;
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseTrailingSlashMatch(true);
     }
 
     @Bean
@@ -64,6 +64,17 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         return messageSource;
     }
 
+    @Bean
+    public DateFormatter dateFormatter() {
+        return new DateFormatter();
+    }
+
+    @Override
+    public void addFormatters(final FormatterRegistry registry) {
+        super.addFormatters(registry);
+        registry.addFormatter(dateFormatter());
+    }
+
 
    /* **************************************************************** */
     /*  THYMELEAF-SPECIFIC ARTIFACTS                                    */
@@ -71,7 +82,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     /* **************************************************************** */
 
     @Bean
-    public SpringResourceTemplateResolver templateResolver(){
+    public SpringResourceTemplateResolver templateResolver() {
         // SpringResourceTemplateResolver automatically integrates with Spring's own
         // resource resolution infrastructure, which is highly recommended.
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -87,7 +98,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine(){
+    public SpringTemplateEngine templateEngine() {
         // SpringTemplateEngine automatically applies SpringStandardDialect and
         // enables Spring's own MessageSource message resolution mechanisms.
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
@@ -106,14 +117,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
-    public ThymeleafViewResolver viewResolver(){
+    public ThymeleafViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         return viewResolver;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 }

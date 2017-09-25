@@ -6,6 +6,7 @@ import com.demo.repo.UserRepo;
 import com.demo.service.UserService;
 import com.demo.util.RecordBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+@Transactional(propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;
@@ -27,22 +28,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findById(Long id) {
         return userRepo.findOne(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public long countUsers() {
         return userRepo.countUsers();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return userRepo.findAll();
     }
 
     @Override
-    @Transactional(readOnly = false)
     public User create(String email, String password, UserType userType) {
         User user = RecordBuilder.buildUser(email);
         user.setPassword(password);
@@ -51,11 +54,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = false)
     public User create(User user) {
         if (user.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         return userRepo.save(user);
+    }
+
+    @Override
+    @Secured("ROLE_ADMIN")
+    public void remove(User user) {
+        userRepo.delete(user);
+    }
+
+    @Override
+    @Secured("ROLE_ADMIN")
+    public void remove(Long id) {
+        userRepo.delete(id);
     }
 }

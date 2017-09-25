@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="header" th:insert="page :: header"></div>
-Create user
+<h1>Create user</h1>
 <form action="#" th:action="@{''}" th:object="${user}" method="post">
     <table>
         <tr>
@@ -26,7 +26,7 @@ Create user
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="text" th:field="*{password}"/></td>
+            <td><input type="password" th:field="*{password}"/></td>
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
         </tr>
         <tr>

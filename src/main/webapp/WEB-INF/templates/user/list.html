@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>User List</title>
 </head>
 <body>
 <div id="header" th:insert="page :: header"></div>
-<span th:text="#{title.application}"></span>
-<br>
-No. of users: <span th:text="${@userServiceImpl.countUsers()}"/>
+<h1 th:text="#{title.application}">Application Title</h1>
+No. of users: <span th:text="${@userServiceImpl.countUsers()}">5</span>
 <table>
     <tr th:unless="${users.isEmpty()}">
         <th>Row</th>
         <th>Name</th>
         <th>Type</th>
+        <th>Created At</th>
+        <th>Modified At</th>
+        <th sec:authorize="hasRole('ADMIN')">Operation</th>
     </tr>
     <tr th:each="user, userStat : ${users}">
         <td th:text="${userStat.index}">Row</td>
         <td th:text="${user.getUsername()}">Name</td>
         <td th:text="${user.getUserType()}">Type</td>
+        <td th:text="${{user.createdAt}}">Created At</td>
+        <td th:text="${{user.modifiedAt}}">Modified At</td>
+        <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/user/delete/{userId}(userId=${user.id})}">Delete</a></td>
     </tr>
 </table>
-<form id="logout" th:action='@{/logout}' method='POST'>
-</form>
 <div id="footer" th:insert="page :: copy"></div>
 </body>
 </html>
