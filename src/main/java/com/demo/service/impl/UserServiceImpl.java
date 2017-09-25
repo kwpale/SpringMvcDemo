@@ -6,6 +6,7 @@ import com.demo.repo.UserRepo;
 import com.demo.service.UserService;
 import com.demo.util.RecordBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +18,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepo userRepo) {
+    public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -44,13 +47,15 @@ public class UserServiceImpl implements UserService {
         User user = RecordBuilder.buildUser(email);
         user.setPassword(password);
         user.setUserType(userType);
-        userRepo.save(user);
-        return user;
+        return create(user);
     }
 
     @Override
     @Transactional(readOnly = false)
     public User create(User user) {
+        if (user.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepo.save(user);
     }
 }

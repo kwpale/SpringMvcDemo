@@ -37,7 +37,7 @@ public class User extends AbstractEntity {
     private String email;
 
     @Column
-    private boolean active;
+    private boolean active = true;
 
     public String getUsername() {
         return username;

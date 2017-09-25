@@ -5,6 +5,7 @@
     <title>User List</title>
 </head>
 <body>
+<div id="header" th:insert="page :: header"></div>
 <span th:text="#{title.application}"></span>
 <br>
 No. of users: <span th:text="${@userServiceImpl.countUsers()}"/>
@@ -20,6 +21,8 @@ No. of users: <span th:text="${@userServiceImpl.countUsers()}"/>
         <td th:text="${user.getUserType()}">Type</td>
     </tr>
 </table>
-<span th:text="${users}"/>
+<form id="logout" th:action='@{/logout}' method='POST'>
+</form>
+<div id="footer" th:insert="page :: copy"></div>
 </body>
 </html>

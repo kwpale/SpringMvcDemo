@@ -9,13 +9,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The web configuration file
@@ -34,12 +40,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     private ApplicationContext applicationContext;
 
-    /**
-     * {@inheritDoc}
-     * <p>This implementation is empty.
-     *
-     * @param configurer
-     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+    }
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -93,6 +98,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         // across different data types, so this flag is "false" by default
         // for safer backwards compatibility.
         templateEngine.setEnableSpringELCompiler(true);
+        // Add Spring Security Dialect
+        Set<IDialect> additionalDialects = new HashSet<>();
+        additionalDialects.add(new SpringSecurityDialect());
+        templateEngine.setAdditionalDialects(additionalDialects);
         return templateEngine;
     }
 
