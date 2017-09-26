@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:include="common :: head (#{login.title})">
     <meta charset="UTF-8">
     <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="error"
-     th:if="${param.error} and ${session['SPRING_SECURITY_LAST_EXCEPTION']}"
-     th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-    Your login attempt was not successful, try again.<br/>
-    Reason: <span th:text="${errorMsg}">Wrong input!</span>
+<nav th:replace="common :: nav"></nav>
+<div class="container">
+    <div class="mt-3">
+        <h1 th:text="#{title.application}">Application Title</h1>
+    </div>
+    <div class="error"
+         th:if="${param.error} and ${session['SPRING_SECURITY_LAST_EXCEPTION']}"
+         th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+        Your login attempt was not successful, try again.<br/>
+        Reason: <span th:text="${errorMsg}">Wrong input!</span>
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-default">Login</button>
+    </form>
 </div>
-<form th:action="@{/login}" method="post">
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username"/></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password"/></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="submit">Login</button>
-            </td>
-        </tr>
-    </table>
-</form>
-<div id="footer" th:insert="page :: copy"></div>
+<footer th:replace="common :: footer"></footer>
 </body>
 </html>

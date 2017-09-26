@@ -7,6 +7,7 @@ import com.demo.service.UserService;
 import com.demo.util.RecordBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -63,12 +64,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Secured("ROLE_ADMIN")
+    @PreAuthorize("#user.username ne authentication.principal.username")
     public void remove(User user) {
         userRepo.delete(user);
     }
 
     @Override
     @Secured("ROLE_ADMIN")
+    @PreAuthorize("authentication.principal.username ne @userServiceImpl.findById(#id).username")
     public void remove(Long id) {
         userRepo.delete(id);
     }

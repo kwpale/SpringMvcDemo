@@ -59,7 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage(loginPage)
             .and()
             .logout()
-                .logoutSuccessUrl("/")
             .and()
             .rememberMe()
                 .tokenRepository(memoryTokenRepository())
@@ -85,6 +84,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(authoritiesByUsernameQuery)
                 .passwordEncoder(passwordEncoder());
     }
-
-    
 }
