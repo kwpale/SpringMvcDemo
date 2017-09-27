@@ -47,7 +47,7 @@ public class UserController {
         return user.toString();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
     public String show(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);

@@ -29,24 +29,20 @@ public class HomeController implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    @Value("${db.driverClassName}")
-    private String driverClassName;
-
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
-    public String show() {
-        return Arrays.asList(applicationContext.getBeanDefinitionNames()).toString() + "\n"
-                + Arrays.asList(applicationContext.getParent().getBeanDefinitionNames()).toString();
-    }
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 
-    @RequestMapping(value = "/test")
+    @RequestMapping(value = "/showBeans", method = RequestMethod.GET)
     @ResponseBody
-    public String test() {
-        return driverClassName;
+    public String showBeans() {
+        return Arrays.asList(applicationContext.getBeanDefinitionNames()).toString() + "\n"
+                + Arrays.asList(applicationContext.getParent().getBeanDefinitionNames()).toString();
+    }
+
+    @RequestMapping
+    public String home() {
+        return "redirect:/user";
     }
 }
